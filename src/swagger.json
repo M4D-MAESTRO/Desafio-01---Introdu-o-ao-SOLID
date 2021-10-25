@@ -1,0 +1,304 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Atlas",
+        "description": "This is a documentation about the Atlas API",
+        "version": "1.0.0",
+        "contact": {
+            "email": "lhccorrea@hotmail.com"
+        }
+    },
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Create a new user",
+                "description": "Create a new user in the system",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "examples": {
+                                    "name": "Liam Neeson",
+                                    "email": "neeson@email.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "admin": {
+                                            "type": "string"
+                                        },
+                                        "created_at": {
+                                            "type": "string"
+                                        },
+                                        "updated_at": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                        "properties": {
+                                            "error": {
+                                                "type": "string"
+                                            }
+                                        }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "List all users",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "user_id",
+                        "description": "User ID to be passed as a header",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "required": true
+                        },
+                        "style": "simple"
+                    }
+                ],
+                "description": "List all users in the system, if the autenticated user is admin",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "admin": {
+                                                "type": "string"
+                                            },
+                                            "created_at": {
+                                                "type": "string"
+                                            },
+                                            "updated_at": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                        "properties": {
+                                            "error": {
+                                                "type": "string"
+                                            }
+                                        }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}":{
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get user by ID",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "description": "User ID to be showed",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "required": true
+                        },
+                        "style": "simple"
+                    }
+                ],
+                "description": "Get an user by his ID",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "admin": {
+                                                "type": "string"
+                                            },
+                                            "created_at": {
+                                                "type": "string"
+                                            },
+                                            "updated_at": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                        "properties": {
+                                            "error": {
+                                                "type": "string"
+                                            }
+                                        }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}/admin":{
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Transform user in admin",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "user_id",
+                        "description": "User ID to be showed",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid",
+                            "required": true
+                        },
+                        "style": "simple"
+                    }
+                ],
+                "description": "Change the user to admin",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "admin": {
+                                                "type": "string"
+                                            },
+                                            "created_at": {
+                                                "type": "string"
+                                            },
+                                            "updated_at": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                        "properties": {
+                                            "error": {
+                                                "type": "string"
+                                            }
+                                        }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
